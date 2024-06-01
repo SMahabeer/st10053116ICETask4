@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3  # Use the latest version (v3)
         with:
           distribution: 'adopt'
-          java-version: '11'  # Consider using a newer version if necessary
+          java-version: '17'  # Consider using a newer version if necessary
 
       - name: Use latest Android SDK
         uses: google-github-actions/setup-gcloud@v0  # Use the latest version (v0)
