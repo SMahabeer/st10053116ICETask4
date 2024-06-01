@@ -11,16 +11,21 @@ jobs:
   test-feature:
     runs-on: ubuntu-latest
 
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v3  # Use the latest version (v3)
 
-      - name: Set up JDK 11 (consider using newer version if needed)
-        uses: actions/setup-java@v3.13.0
+      - name: Set up JDK (consider using newer version if needed)
+        uses: actions/setup-java@v3  # Use the latest version (v3)
         with:
           distribution: 'adopt'
           java-version: '11'  # Consider using a newer version if necessary
+
+      - name: Use latest Android SDK
+        uses: google-github-actions/setup-gcloud@v0  # Use the latest version (v0)
+        with:
+          project-id: 'your-project-id' # Replace with your GCP project ID
+          service-account-key: ${{ secrets.ANDROID_SDK_KEY }} # Replace with secret name
 
       - name: Grant execute permissions for gradlew
         run: chmod +x ./gradlew
