@@ -1,43 +1,29 @@
-# This workflow tests Android app functionality
-name: Test App Functionality
+name: AndroidBuild
 
-# Triggers on push to the main branch
+# Trigger on pull requests and pushes to the master branch
 on:
+  pull_request:
+    branches: [ master ]
   push:
     branches: [ master ]
 
-# Jobs to be executed
 jobs:
-  test:
-    # Runs on a runner with Android emulator (adjust based on your needs)
+  test-feature:
     runs-on: ubuntu-latest
 
-    # Steps to be executed
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4.1.0
 
-      # Setup Android SDK (refer to official documentation for details)
-      - name: Set up Android SDK
-        uses: google-github-actions/setup-gcloud@v0
+      - name: Set up JDK 11 (consider using newer version if needed)
+        uses: actions/setup-java@v3.13.0
         with:
-          project-id: 'your-project-id' # Replace with your GCP project ID
-          service-account-key: ${{ secrets.ANDROID_SDK_KEY }} # Replace with secret name
+          distribution: 'adopt'
+          java-version: '11'  # Consider using a newer version if necessary
 
-      # Install emulator (refer to official documentation for details)
-      - name: Install emulator
-        run: |
-          # Replace with actual commands to install and launch emulator
-          emulator -avd your_avd_name &
+      - name: Grant execute permissions for gradlew
+        run: chmod +x ./gradlew
 
-      # Push your app to the emulator (replace with your build and deploy commands)
-      - name: Push app to emulator
-        run: |
-          # Replace with actual commands to build and deploy your app
-
-      # Run your custom script to interact with the app and test functionality
-      - name: Run test script
-        run: |
-          # Replace with your custom script that interacts with the app
-          # This script could potentially call the divide function within the app
-          # and assert the results
-          sh test_script.sh
+      - name: Run Tests with Gradle
+        run: ./gradlew test
