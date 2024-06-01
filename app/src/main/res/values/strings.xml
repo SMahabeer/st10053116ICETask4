@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">st10053116 ICE Task4</string>
+    <string name="enter_number_1">Enter number 1</string>
+    <string name="enter_number_2">Enter number 2</string>
+    <string name="divide_numbers">Divide numbers</string>
+    <string name="solution">Solution:</string>
+</resources>
